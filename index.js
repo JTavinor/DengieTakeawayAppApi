@@ -1,8 +1,18 @@
+// Sets up a debugger for the startup file
+// To only use a certain debugger, set the DEBUG env var:
+// export DEBUG=app:startup
+const startupDebugger = require("debug")("app:startup");
+// Sets up a debugger for databases (NOTE: Name is arbitrary)
+// To set up multiple debugger:
+// export DEBUG=app:startup,app:db
+const dbDebugger = require("debug")("app:db");
+
 const config = require("config");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const Joi = require("joi");
 const logger = require("./middleware/logger");
+
 // Create express instance
 const express = require("express");
 const app = express();
@@ -24,7 +34,8 @@ app.use(helmet());
 // set environment in terminal using: export NODE_ENV=`enviroment here`
 if (app.get("env") === "development") {
   app.use(morgan("tiny"));
-  console.log("Morgan enabled");
+  startupDebugger("Morgan enabled");
+  dbDebugger("DEbugging... enabled");
 }
 
 //Custom middleware
