@@ -1,3 +1,4 @@
+const config = require("config");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const Joi = require("joi");
@@ -5,6 +6,13 @@ const logger = require("./middleware/logger");
 // Create express instance
 const express = require("express");
 const app = express();
+
+// Configuration
+console.log("Application Name: " + config.get("name"));
+console.log("Mail Server: " + config.get("mail.host"));
+// app_password is set as an environment variable. Set it using export app_password=XXXX.
+//  Use for secret variables. Access it in the custom-environment-variables config file
+console.log("Mail Password: " + config.get("mail.password"));
 
 process.env.NODE_ENV;
 

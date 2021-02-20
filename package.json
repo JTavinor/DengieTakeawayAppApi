@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/JTavinor/DengieTakeawayAppApi#readme",
   "dependencies": {
+    "config": "^3.3.3",
     "express": "^4.17.1",
     "helmet": "^4.4.1",
     "joi": "^17.4.0",

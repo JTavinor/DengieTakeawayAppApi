@@ -1,0 +1,6 @@
+{
+  "name": "Dengie takeaway app - Production",
+  "mail": {
+    "host": "prod-mail-server"
+  }
+}
