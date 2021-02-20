@@ -1,8 +1,26 @@
-// Create express instance
+const helmet = require("helmet");
+const morgan = require("morgan");
 const Joi = require("joi");
+const logger = require("./middleware/logger");
+// Create express instance
 const express = require("express");
 const app = express();
+
+process.env.NODE_ENV;
+
 app.use(express.json());
+// Look into Helmet - for securing headers
+app.use(helmet());
+// Look into Morgan - For logging
+// Enabling morgan only if we are in development environment
+// set environment in terminal using: export NODE_ENV=`enviroment here`
+if (app.get("env") === "development") {
+  app.use(morgan("tiny"));
+  console.log("Morgan enabled");
+}
+
+//Custom middleware
+app.use(logger);
 
 const cuisines = [
   {
