@@ -38,4 +38,19 @@ async function createOrder() {
   console.log(result);
 }
 
-createOrder();
+async function getOrders() {
+  // Finds all documents with these info
+  const orders = await Order.find({
+    customerName: "Kenny Smith",
+    orderComplete: true,
+  })
+    // Limit num of docs returned
+    .limit(10)
+    // Sort the data: 1 = ascending, -1 = descending
+    .sort({ customerName: 1 })
+    // Select specific properties to be returned
+    .select({ items: 1, customerName: 1 });
+  console.log(orders);
+}
+
+getOrders();
