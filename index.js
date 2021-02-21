@@ -63,4 +63,9 @@ async function updateOrder(id) {
   console.log(result);
 }
 
-updateOrder("603171371804edbf5afeb24f");
+async function removeOrder(id) {
+  const result = await Order.deleteOne({ _id: id });
+  console.log(result);
+}
+
+removeOrder("603171371804edbf5afeb24f");
