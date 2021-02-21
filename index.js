@@ -11,14 +11,27 @@ mongoose
   .catch((err) => console.error("Could not connect to MongoDB...", err));
 
 // Schema for a customer order
+//Need to add address
 const orderSchema = new mongoose.Schema({
   items: {
-    type: [{ itemName: String, quantity: Number, price: Number }],
+    type: [
+      {
+        itemName: { type: String, required: true },
+        quantity: { type: Number, required: true },
+        price: { type: Number, required: true },
+      },
+    ],
+    validate: {
+      validator: function (v) {
+        return v && v.length > 0;
+      },
+      message: "Order must contain at least one item",
+    },
     required: true,
   },
   delivery: { type: Boolean, required: true },
   phoneNumber: { type: String, required: true },
-  customerName: { type: String, required: true },
+  customerName: { type: String, required: true, maxLength: 30 },
   orderTime: { type: Date, default: Date.now() },
   orderComplete: { type: Boolean, default: false },
 });
@@ -28,9 +41,9 @@ const Order = mongoose.model("Order", orderSchema);
 async function createOrder() {
   const order = new Order({
     items: [
-      //   { itemName: "Coke", quantity: 1, price: 3 },
-      //   { itemName: "Pilau Rice", quantity: 3, price: 5 },
-      //   { itemName: "Sag Ponir", quantity: 4, price: 7.5 },
+      { itemName: "Coke", quantity: 1, price: 3 },
+      { itemName: "Pilau Rice", quantity: 3, price: 5 },
+      { itemName: "Sag Ponir", quantity: 4, price: 7.5 },
     ],
     delivery: true,
     phoneNumber: "123",
