@@ -12,10 +12,13 @@ mongoose
 
 // Schema for a customer order
 const orderSchema = new mongoose.Schema({
-  items: [{ itemName: String, quantity: Number, price: Number }],
-  delivery: Boolean,
-  phoneNumber: String,
-  customerName: String,
+  items: {
+    type: [{ itemName: String, quantity: Number, price: Number }],
+    required: true,
+  },
+  delivery: { type: Boolean, required: true },
+  phoneNumber: { type: String, required: true },
+  customerName: { type: String, required: true },
   orderTime: { type: Date, default: Date.now() },
   orderComplete: { type: Boolean, default: false },
 });
@@ -25,17 +28,21 @@ const Order = mongoose.model("Order", orderSchema);
 async function createOrder() {
   const order = new Order({
     items: [
-      { itemName: "Coke", quantity: 1, price: 3 },
-      { itemName: "Pilau Rice", quantity: 3, price: 5 },
-      { itemName: "Sag Ponir", quantity: 4, price: 7.5 },
+      //   { itemName: "Coke", quantity: 1, price: 3 },
+      //   { itemName: "Pilau Rice", quantity: 3, price: 5 },
+      //   { itemName: "Sag Ponir", quantity: 4, price: 7.5 },
     ],
-    delivery: false,
-    phoneNumber: "0745275673",
-    customerName: "Kenny Smith",
+    delivery: true,
+    phoneNumber: "123",
+    customerName: "James Blake",
   });
 
-  const result = await order.save();
-  console.log(result);
+  try {
+    const result = await order.save();
+    console.log(result);
+  } catch (ex) {
+    console.log(ex.message);
+  }
 }
 
 async function getOrders() {
@@ -68,4 +75,4 @@ async function removeOrder(id) {
   console.log(result);
 }
 
-removeOrder("603171371804edbf5afeb24f");
+createOrder();
