@@ -53,4 +53,14 @@ async function getOrders() {
   console.log(orders);
 }
 
-getOrders();
+async function updateOrder(id) {
+  // Query first approach
+  const order = await Order.findById(id);
+  if (!order) return;
+  order.orderComplete = true;
+
+  const result = await order.save();
+  console.log(result);
+}
+
+updateOrder("603171371804edbf5afeb24f");
