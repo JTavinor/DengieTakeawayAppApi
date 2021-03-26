@@ -18,15 +18,18 @@
   },
   "homepage": "https://github.com/JTavinor/DengieTakeawayAppApi#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "config": "^3.3.3",
     "cors": "^2.8.5",
     "debug": "^4.3.1",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "helmet": "^4.4.1",
     "joi": "^17.4.0",
     "mongoose": "^5.11.17",
     "morgan": "^1.10.0",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "stripe": "^8.137.0"
   }
 }

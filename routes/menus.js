@@ -51,13 +51,14 @@ router.get("/", async (req, res) => {
   res.send(menus);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:name", async (req, res) => {
   try {
-    var menu = await Menu.findById(req.params.id);
-    res.send(menu);
-  } catch {
-    if (!menu) return res.status(404).send(`No menu with id ${req.params.id}`);
+    var menu = await Menu.findOne({ restaurant: req.params.name });
+  } catch (ex) {
+    res.status(400).send(ex.errors);
   }
+  if (!menu) return res.status(404).send(`No menu with id ${req.params.id}`);
+  res.send(menu);
 });
 
 // Add a new menu to the db

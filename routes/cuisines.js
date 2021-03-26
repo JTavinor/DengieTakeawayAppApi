@@ -19,7 +19,7 @@ const upload = multer({ storage: storage });
 // Validation functions
 function validateCuisine(cuisine) {
   const schema = Joi.object({
-    cuisine: Joi.string().min(3).required(),
+    cuisineName: Joi.string().min(3).required(),
     restaurants: Joi.array(),
   });
 
@@ -31,6 +31,7 @@ function validateRestaurant(restaurant) {
     restaurant: Joi.string().min(3).required(),
     openingHours: Joi.array().required(),
     postcodes: Joi.array().required(),
+    menuId: Joi.string(),
   });
 
   return schema.validate(restaurant);
@@ -53,7 +54,7 @@ const cuisineSchema = new mongoose.Schema({
     },
     required: true,
   },
-  cuisine: { type: String, required: true },
+  cuisineName: { type: String, required: true },
   bannerImage: { type: String },
 });
 
@@ -76,7 +77,7 @@ router.post("/", upload.single("bannerImage"), async (req, res) => {
   }
 
   let cuisine = new Cuisine({
-    cuisine: req.body.cuisine,
+    cuisine: req.body.cuisineName,
     bannerImage: req.file.path,
     restaurants: req.body.restaurants,
   });
